@@ -8,7 +8,7 @@ You can find the built image on [Docker Hub](https://hub.docker.com/r/takemetour
 
 | Environment Variable | Required | Default | Description |
 | --- | --- | --- | --- |
-| GCS_KEY_FILE_PATH | YES |  | Path to service account key file. You can either mount the key file to the container or rebuild another image with key file using this image |
+| GCS_KEY_FILE_PATH | YES |  | Path to service account key file. You can either mount the key file to the container or rebuild another image based on this image with additional key file |
 | GCS_BUCKET | YES |  | Name of the Google Cloud Storage bucket |
 | CRON_EXPRESSION | NO | 0 0 \* \* \* | Cron expression to control backup interval |
 | MONGODB_HOST | NO | localhost | The host variable that will pass to `mongodump` command |
