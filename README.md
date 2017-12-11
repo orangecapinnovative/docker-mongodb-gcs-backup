@@ -1,10 +1,10 @@
-# docker-mongodb-gcs-backup
+# docker-mongodb-gcs-backup [![Docker Build Status](https://img.shields.io/docker/build/takemetour/mongodb-gcs-backup.svg)](https://hub.docker.com/r/takemetour/mongodb-gcs-backup)
 
 A docker image that periodically performs MongoDB backup and upload to Google Cloud Storage
 
 ## Usage
 
-You can find the built image on Docker Hub and gcr.io. Then set following environment variable when running the docker container:
+You can find the built image on [Docker Hub](https://hub.docker.com/r/takemetour/mongodb-gcs-backup). Then, set following environment variable when running the docker container:
 
 | Environment Variable | Required | Default | Description |
 | --- | --- | --- | --- |
