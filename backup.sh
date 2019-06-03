@@ -34,7 +34,7 @@ then
   CMD_OPLOG_PART="--oplog "
 fi
 
-CMD="mongodump --host=\"$MONGODB_HOST\" --port=\"$MONGODB_PORT\" $CMD_AUTH_PART$CMD_DB_PART$CMD_OPLOG_PART--gzip --archive=$BACKUP_DIR/$ARCHIVE_NAME"
+CMD="mongodump --host=\"$MONGODB_HOST\" --port=\"$MONGODB_PORT\" $CMD_AUTH_PART$CMD_DB_PART$CMD_OPLOG_PART--gzip --archive=$BACKUP_DIR/$ARCHIVE_NAME --readPreference secondary"
 
 echo "Running command: $CMD"
 
