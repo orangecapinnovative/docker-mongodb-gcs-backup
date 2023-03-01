@@ -1,11 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-set -e
-
-echo "Backup starting..."
-. /root/container_env.sh
-
-export BOTO_PATH=/root/config.boto
+set -exo pipefail
 
 MONGODB_HOST=${MONGODB_HOST:-localhost}
 MONGODB_PORT=${MONGODB_PORT:-27017}
@@ -16,6 +11,8 @@ DATE=$(date -u "+%F-%H%M%S")
 ARCHIVE_NAME="backup-$DATE.tar.gz"
 
 CMD_AUTH_PART=""
+
+gcloud auth activate-service-account --key-file ${GCS_KEY_FILE_PATH}
 
 mkdir -p $BACKUP_DIR
 
