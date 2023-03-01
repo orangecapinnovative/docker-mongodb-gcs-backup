@@ -1,28 +1,20 @@
-FROM alpine:3.7
+FROM google/cloud-sdk:419.0.0-slim
 
-RUN apk add --update \
-  mongodb-tools \
-  curl \
-  python \
-  py-pip \
-  py-cffi \
-  && pip install --upgrade pip \
-  && apk add --virtual build-deps \
-  gcc \
-  libffi-dev \
-  python-dev \
-  linux-headers \
-  musl-dev \
-  openssl-dev \
-  && pip install gsutil \
-  && apk del build-deps \
-  && rm -rf /var/cache/apk/*
+ENV MONGOTOOLS_VERSION=100.6.1
 
-ADD ./backup.sh /mongodb-gcs-backup/backup.sh
-ADD ./initialize.sh /mongodb-gcs-backup/initialize.sh
-WORKDIR /mongodb-gcs-backup
+RUN apt-get update && \
+    apt-get install -y curl && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN chmod +x /mongodb-gcs-backup/backup.sh
-RUN chmod +x /mongodb-gcs-backup/initialize.sh
+RUN curl -LO https://fastdl.mongodb.org/tools/db/mongodb-database-tools-debian11-x86_64-${MONGOTOOLS_VERSION}.tgz && \
+    tar -xzvf mongodb-database-tools-debian11-x86_64-${MONGOTOOLS_VERSION}.tgz && \
+    mv mongodb-database-tools-debian11-x86_64-${MONGOTOOLS_VERSION}/bin/* /usr/local/bin/ && \
+    rm -rf mongodb-database-tools-debian11-x86_64-${MONGOTOOLS_VERSION}*
 
-CMD ["/mongodb-gcs-backup/initialize.sh"]
+WORKDIR /app
+
+ADD ./backup.sh .
+
+RUN chmod +x backup.sh
+
+CMD ["bash", "/app/backup.sh"]
